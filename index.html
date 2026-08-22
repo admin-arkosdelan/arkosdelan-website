@@ -6,9 +6,9 @@
   <title>Arkosdelan | Premium Ticket Access & Seat Saver</title>
   
   <!-- Tab Favicon Fix -->
-  <link rel="icon" type="image/jpeg" href="logo.png?v=2">
-  <link rel="shortcut icon" type="image/jpeg" href="logo.png?v=2">
-  <link rel="apple-touch-icon" href="logo.png?v=2">
+  <link rel="icon" type="image/png" href="logo.png?v=3">
+  <link rel="shortcut icon" type="image/png" href="logo.png?v=3">
+  <link rel="apple-touch-icon" href="logo.png?v=3">
 
   <style>
     :root {
@@ -241,7 +241,7 @@
       border: 1px solid #334155;
       border-radius: 12px;
       max-width: 650px;
-      margin: 10% auto;
+      margin: 5% auto;
       padding: 1.5rem;
       color: var(--text-main);
       text-align: left;
@@ -271,16 +271,16 @@
       <h1>Your Seats. Your Event. Sourced for You.</h1>
       <p class="tagline">Boutique ticket sourcing for concerts, comedy shows, and live events.</p>
       <div class="seat-saver-explainer">
-        <strong>What is Seat Saver?</strong> Our bespoke sourcing service where we match your event, seating preferences, and budget to secure authentic tickets directly for you.
+        <strong>What is Seat Saver?</strong> Our bespoke ticket sourcing service matches your event, seating preferences, and budget with available authentic tickets sourced specifically for you.
       </div>
     </section>
 
     <!-- About Section -->
     <section class="content-section" id="about">
       <div class="glass-card">
-        <h2 style="margin-top: 0; color: var(--accent-blue); font-size: 1.3rem;">About Arkos Delan</h2>
+        <h2 style="margin-top: 0; color: var(--accent-blue); font-size: 1.3rem;">About Arkosdelan</h2>
         <p style="margin-bottom: 0; font-size: 0.95rem;">
-          Arkos Delan is an independent ticket sourcing and brokerage boutique. We specialize in locating hard-to-find seats and premium access for high-demand concerts, comedy tours, and live entertainment. Rather than forcing fans to navigate confusing secondary marketplaces, our dedicated team handles the entire sourcing process to deliver verified, guaranteed tickets directly to your digital wallet.
+          Arkosdelan is an independent ticket sourcing and brokerage boutique that helps clients find tickets for concerts, comedy tours, and live entertainment based on their specific preferences.
         </p>
       </div>
     </section>
@@ -293,22 +293,22 @@
           <div class="step-box">
             <div class="step-num">01</div>
             <strong>Submit Request</strong>
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">Tell us your act, budget, section preference, and quantity.</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">Tell us the event, budget, section preference, and quantity.</p>
           </div>
           <div class="step-box">
             <div class="step-num">02</div>
             <strong>We Source</strong>
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">We query our trusted partner network for authentic inventory.</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">We search our trusted sourcing network for available ticket options.</p>
           </div>
           <div class="step-box">
             <div class="step-num">03</div>
             <strong>Review & Confirm</strong>
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">Receive a custom quote and secure seat option for review.</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">Receive a custom quote and available seat options for your review.</p>
           </div>
           <div class="step-box">
             <div class="step-num">04</div>
             <strong>Digital Delivery</strong>
-            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">Tickets are transferred directly to your email or primary app.</p>
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">Once confirmed, tickets are delivered electronically through the applicable ticketing platform.</p>
           </div>
         </div>
       </div>
@@ -324,14 +324,12 @@
         
         <form action="https://formspree.io/f/YOUR_FORMSPREE_ID_HERE" method="POST" id="ticketRequestForm">
           <div class="form-grid">
-            <!-- Autocomplete Artist Input -->
             <input type="text" id="artistInput" name="Artist/Show" list="artist-suggestions" placeholder="Artist or Show Name" required autocomplete="off">
             <datalist id="artist-suggestions"></datalist>
 
             <input type="text" name="City/Venue" placeholder="City or Venue" required>
             <input type="date" name="Event Date" required>
             
-            <!-- Seating Preference Input + Datalist -->
             <input type="text" name="Section" list="seating-options" placeholder="Preferred Section" required>
             <datalist id="seating-options">
               <option value="Any">
@@ -346,7 +344,6 @@
               <option value="Best Available">
             </datalist>
 
-            <!-- Number of Tickets Input + Datalist -->
             <input type="text" name="Ticket Quantity" list="ticket-quantities" placeholder="Number of Tickets" required>
             <datalist id="ticket-quantities">
               <option value="1 Ticket">
@@ -394,9 +391,9 @@
       <button onclick="openModal('refundModal')">Refund Policy</button>
     </div>
     
-    <p>Dedicated Client Support: <a href="mailto:support@arkosdelan.com" style="color: var(--accent-blue);">support@arkosdelan.com</a></p>
+    <p>General inquiries: <a href="mailto:contact@arkosdelan.com" style="color: var(--accent-blue);">contact@arkosdelan.com</a></p>
     <p style="font-size: 0.75rem; opacity: 0.7; margin-top: 1rem;">
-      © 2026 Arkos Delan. All rights reserved. Arkos Delan is an independent ticket sourcing broker and is not affiliated with any primary ticketing venue, box office, or artist.
+      © 2026 Arkosdelan. All rights reserved. Arkosdelan is an independent ticket sourcing and brokerage business and is not affiliated with or endorsed by any primary ticketing platform, venue, box office, artist, team, or event organizer.
     </p>
   </footer>
 
@@ -405,7 +402,13 @@
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal('privacyModal')">&times;</span>
       <h3>Privacy Policy</h3>
-      <p>Arkos Delan values your privacy. We collect customer names, email addresses, and event request details solely to fulfill custom ticket sourcing requests and communicate quotes. We do not sell, rent, or share your personal information with third-party advertisers. All transaction data is processed securely through standard encrypted protocols.</p>
+      <p>Arkosdelan respects your privacy and is committed to protecting the personal information you provide when using our services.</p>
+      <p>We may collect information such as your name, email address, event details, seating preferences, budget, and other information you provide when submitting a ticket sourcing request. We use this information to respond to inquiries, source and fulfill ticket requests, provide quotes, process transactions, and communicate with you regarding your order.</p>
+      <p>We do not sell or rent your personal information to third-party advertisers. We may share information with trusted service providers and ticketing platforms when necessary to process your request, complete a transaction, deliver tickets, or provide related services.</p>
+      <p>We take reasonable measures to protect personal information against unauthorized access, disclosure, alteration, or destruction. Payment information is processed through third-party payment providers using their security and encryption systems, and we do not intentionally store full payment card details on our servers.</p>
+      <p>We retain personal information only for as long as reasonably necessary to provide our services, comply with legal and accounting obligations, resolve disputes, and enforce our agreements.</p>
+      <p>By using our website or submitting a request, you acknowledge that you have read and understood this Privacy Policy.</p>
+      <p><strong>Contact:</strong> contact@arkosdelan.com</p>
     </div>
   </div>
 
@@ -414,7 +417,13 @@
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal('termsModal')">&times;</span>
       <h3>Terms & Conditions</h3>
-      <p>By submitting a request or purchasing ticket sourcing services through Arkos Delan, you agree that Arkos Delan acts as an independent concierge broker. Final pricing is agreed upon prior to order confirmation. All tickets fulfilled are guaranteed to be 100% authentic and valid for entry.</p>
+      <p>By submitting a ticket sourcing request or purchasing services through Arkosdelan, you agree to these Terms & Conditions.</p>
+      <p>Arkosdelan operates as an independent ticket sourcing and brokerage service. We source ticket options based on the event, seating preferences, quantity, and budget provided by the client.</p>
+      <p>All pricing, ticket details, fees, and applicable terms will be disclosed and agreed upon before an order is confirmed. A ticket request does not constitute a purchase or guarantee availability until the order has been confirmed by Arkosdelan.</p>
+      <p>Tickets supplied through Arkosdelan are sourced through our ticketing and industry network and are intended to be valid for entry to the specified event. Ticket delivery methods may vary depending on the event and ticket provider.</p>
+      <p>Event dates, times, venues, seating configurations, and ticketing requirements may be changed by the event organizer or ticket provider. Arkosdelan is not responsible for changes made by event organizers, venues, artists, teams, or ticketing platforms.</p>
+      <p>By submitting a request, you confirm that the information you provide is accurate and that you have reviewed and accepted the applicable pricing and order terms before confirmation.</p>
+      <p><strong>Contact:</strong> contact@arkosdelan.com</p>
     </div>
   </div>
 
@@ -423,7 +432,11 @@
     <div class="modal-content">
       <span class="close-btn" onclick="closeModal('refundModal')">&times;</span>
       <h3>Refund & Cancellation Policy</h3>
-      <p>Due to the nature of live event ticketing, all confirmed ticket sales are final once digital transfer is initiated. If an event is permanently cancelled by the organizer (and not rescheduled), customers will receive a 100% refund for the ticket value. If an event is postponed or rescheduled, original tickets remain valid for the new date, and refunds are not issued.</p>
+      <p>Due to the nature of live event ticketing, confirmed ticket sales are generally final once payment has been completed and ticket delivery or transfer has been initiated.</p>
+      <p>If an event is permanently cancelled by the event organizer and is not rescheduled, customers will be eligible for a refund of the amount paid for the affected tickets, subject to any applicable terms imposed by the ticket provider or payment processor.</p>
+      <p>If an event is postponed or rescheduled, tickets generally remain valid for the new event date. Refund eligibility will depend on the policy of the applicable ticket provider or event organizer.</p>
+      <p>Requests to cancel an order before ticket delivery or transfer may be considered on a case-by-case basis, depending on the status of the order and whether the tickets have already been purchased or committed on the customer's behalf.</p>
+      <p>For questions regarding a refund or cancellation, please contact support@arkosdelan.com.</p>
     </div>
   </div>
 
