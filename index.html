@@ -145,7 +145,7 @@
       gap: 0.85rem;
       margin-top: 1rem;
     }
-    input, select {
+    input, select, textarea {
       background: rgba(15, 23, 42, 0.85);
       border: 1px solid rgba(255, 255, 255, 0.15);
       color: #fff;
@@ -153,8 +153,13 @@
       border-radius: 6px;
       width: 100%;
       font-size: 0.95rem;
+      font-family: inherit;
     }
-    input::placeholder { color: #94a3b8; }
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    input::placeholder, textarea::placeholder { color: #94a3b8; }
     input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); cursor: pointer; }
     
     .btn-submit {
@@ -205,6 +210,13 @@
       .glass-card {
         padding: 1.25rem;
       }
+      .footer-contacts {
+        flex-direction: column;
+        gap: 0.5rem !important;
+      }
+      .footer-contacts span.divider {
+        display: none;
+      }
     }
 
     /* Footer & Modals */
@@ -232,6 +244,15 @@
       text-decoration: underline;
     }
     .footer-links button:hover { color: var(--accent-blue); }
+
+    .footer-contacts {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin: 0.75rem 0;
+    }
 
     /* Copy Feedback Tooltip */
     .copy-link-container {
@@ -285,6 +306,14 @@
       font-size: 1.5rem;
       cursor: pointer;
       color: var(--text-muted);
+      background: none;
+      border: none;
+      padding: 0;
+      line-height: 1;
+      transition: color 0.2s ease;
+    }
+    .close-btn:hover {
+      color: var(--accent-blue);
     }
   </style>
 </head>
@@ -303,7 +332,7 @@
   <main>
     <section class="hero">
       <h1>Your Seats. Your Event. Sourced for You.</h1>
-      <p class="tagline">Boutique ticket sourcing for concerts, comedy shows, and live events, with personalized Seat Saver sourcing.</p>
+      <p class="tagline">Boutique ticket sourcing for concerts, comedy shows, and live events, with personalized Seat Saver service.</p>
       <div class="seat-saver-explainer">
         <strong>What is Seat Saver?</strong> Our bespoke ticket sourcing service matches your event, seating preferences, and budget with available authentic tickets sourced specifically for you.
       </div>
@@ -351,15 +380,18 @@
     <!-- Ticket Request Section -->
     <section class="content-section request-container" id="request">
       <div class="glass-card">
-        <h2 style="margin-top:0; text-align:center; font-size: 1.25rem;">Planning to attend a show? Request your seats.</h2>
+        <h2 style="margin-top:0; text-align:center; font-size: 1.25rem;">Looking for tickets? Request your seats.</h2>
         <p style="color: var(--text-muted); text-align:center; font-size: 0.875rem;">
           Share your event details and budget, and our team will handle the rest.
         </p>
         
-        <form action="https://api.web3forms.com/submit" method="POST" id="ticketRequestForm">
+        <form id="ticketRequestForm">
           <!-- Web3Forms Access Key -->
           <input type="hidden" name="access_key" value="348b1f20-506c-461a-88cb-2cdd080c0197">
           
+          <!-- Web3Forms Anti-Spam Honeypot Field -->
+          <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1" autocomplete="off">
+
           <!-- Custom Email Subject -->
           <input type="hidden" name="subject" value="New Seat Saver Request - ArkosDelan">
 
@@ -387,7 +419,16 @@
             <input type="number" name="Ticket Quantity" min="1" max="20" placeholder="Number of Tickets" required>
             <input type="number" name="Max Budget ($)" min="0" step="1" placeholder="Max Budget per Ticket ($)" required>
 
-            <input type="email" name="Customer Email" class="full-mobile" placeholder="Your Email Address" style="grid-column: span 2;" required>
+            <input type="text" name="Customer Name" placeholder="Your Name" autocomplete="name" required>
+            <input type="email" name="Customer Email" placeholder="Your Email Address" autocomplete="email" required>
+            
+            <textarea 
+              name="Additional Notes" 
+              class="full-mobile" 
+              style="grid-column: span 2;" 
+              placeholder="Any specific seating or ticket preferences? (e.g., aisle seats, seats together, no obstructed view)" 
+              rows="3"></textarea>
+
             <button type="submit" class="btn-submit">SUBMIT SEAT SAVER REQUEST</button>
           </div>
         </form>
@@ -398,7 +439,7 @@
 
         <div class="trust-bar">
           <span>✓ Authentic Ticket Sourcing</span>
-          <span>✓ Secure Digital Transfer</span>
+          <span>✓ Electronic Ticket Delivery</span>
           <span>✓ Dedicated Support</span>
         </div>
       </div>
@@ -413,17 +454,33 @@
       <button onclick="openModal('refundModal')">Refund Policy</button>
     </div>
     
-    <p>Ticket Inquiries: 
-      <span class="copy-link-container">
-        <a href="mailto:sales@arkosdelan.com" 
-           onclick="handleMailClick(event, 'sales@arkosdelan.com', 'tooltipFooter')" 
-           style="color: var(--accent-blue);" 
-           title="Click to send email or copy address">
-          sales@arkosdelan.com
-        </a>
-        <span class="copy-tooltip" id="tooltipFooter">Copied!</span>
-      </span>
-    </p>
+    <div class="footer-contacts">
+      <div>Ticket Inquiries: 
+        <span class="copy-link-container">
+          <a href="mailto:sales@arkosdelan.com" 
+             onclick="handleMailClick(event, 'sales@arkosdelan.com', 'tooltipFooterSales')" 
+             style="color: var(--accent-blue);" 
+             title="Click to send email or copy address">
+            sales@arkosdelan.com
+          </a>
+          <span class="copy-tooltip" id="tooltipFooterSales">Copied!</span>
+        </span>
+      </div>
+
+      <span class="divider" style="opacity: 0.4;">|</span>
+
+      <div>Customer Support: 
+        <span class="copy-link-container">
+          <a href="mailto:support@arkosdelan.com" 
+             onclick="handleMailClick(event, 'support@arkosdelan.com', 'tooltipFooterSupport')" 
+             style="color: var(--accent-blue);" 
+             title="Click to send email or copy address">
+            support@arkosdelan.com
+          </a>
+          <span class="copy-tooltip" id="tooltipFooterSupport">Copied!</span>
+        </span>
+      </div>
+    </div>
 
     <p style="font-size: 0.75rem; opacity: 0.7; margin-top: 1rem;">
       © 2026 ArkosDelan. All rights reserved. ArkosDelan is an independent ticket sourcing and brokerage business and is not affiliated with or endorsed by any primary ticketing platform, venue, box office, artist, team, or event organizer.
@@ -433,7 +490,7 @@
   <!-- Privacy Policy Modal -->
   <div id="privacyModal" class="modal">
     <div class="modal-content">
-      <span class="close-btn" onclick="closeModal('privacyModal')">&times;</span>
+      <button type="button" class="close-btn" onclick="closeModal('privacyModal')" aria-label="Close Privacy Policy">&times;</button>
       <h3>Privacy Policy</h3>
       <p>ArkosDelan respects your privacy and is committed to protecting the personal information you provide when using our services.</p>
       <p>We may collect information such as your name, email address, event details, seating preferences, budget, and other information you provide when submitting a ticket sourcing request. We use this information to respond to inquiries, source and fulfill ticket requests, provide quotes, process transactions, and communicate with you regarding your order.</p>
@@ -457,7 +514,7 @@
   <!-- Terms Modal -->
   <div id="termsModal" class="modal">
     <div class="modal-content">
-      <span class="close-btn" onclick="closeModal('termsModal')">&times;</span>
+      <button type="button" class="close-btn" onclick="closeModal('termsModal')" aria-label="Close Terms & Conditions">&times;</button>
       <h3>Terms & Conditions</h3>
       <p>By submitting a ticket sourcing request or purchasing services through ArkosDelan, you agree to these Terms & Conditions.</p>
       <p>ArkosDelan operates as an independent ticket sourcing and brokerage service. We source ticket options based on the event, seating preferences, quantity, and budget provided by the client.</p>
@@ -482,7 +539,7 @@
   <!-- Refund Policy Modal -->
   <div id="refundModal" class="modal">
     <div class="modal-content">
-      <span class="close-btn" onclick="closeModal('refundModal')">&times;</span>
+      <button type="button" class="close-btn" onclick="closeModal('refundModal')" aria-label="Close Refund Policy">&times;</button>
       <h3>Refund & Cancellation Policy</h3>
       <p>Due to the nature of live event ticketing, confirmed ticket sales are generally final once payment has been completed and ticket delivery or transfer has been initiated.</p>
       <p>If an event is permanently cancelled by the event organizer and is not rescheduled, customers may be eligible for a refund of the amount paid for the affected tickets, subject to the applicable refund terms of the event organizer, ticket provider, or payment processor.</p>
@@ -516,8 +573,8 @@
       }
     }
 
-    // Set minimum date to today
-    document.getElementById('eventDate').min = new Date().toISOString().split('T')[0];
+    // Set minimum date to today using local timezone
+    document.getElementById('eventDate').min = new Date().toLocaleDateString('en-CA');
 
     const popularActs = [
       "Zach Bryan", "Matt Rife", "Nate Bargatze", "Morgan Wallen",
