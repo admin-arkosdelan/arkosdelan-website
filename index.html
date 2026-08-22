@@ -233,6 +233,34 @@
     }
     .footer-links button:hover { color: var(--accent-blue); }
 
+    /* Copy Feedback Tooltip */
+    .copy-link-container {
+      position: relative;
+      display: inline-block;
+    }
+    .copy-tooltip {
+      visibility: hidden;
+      background-color: var(--accent-blue);
+      color: #0f172a;
+      font-weight: bold;
+      text-align: center;
+      border-radius: 4px;
+      padding: 2px 8px;
+      font-size: 0.75rem;
+      position: absolute;
+      z-index: 1001;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      white-space: nowrap;
+    }
+    .copy-tooltip.show {
+      visibility: visible;
+      opacity: 1;
+    }
+
     .modal {
       display: none;
       position: fixed;
@@ -329,7 +357,7 @@
         </p>
         
         <form action="https://api.web3forms.com/submit" method="POST" id="ticketRequestForm">
-          <!-- Web3Forms Access Key (Replace with your actual key from Web3Forms) -->
+          <!-- Web3Forms Access Key -->
           <input type="hidden" name="access_key" value="348b1f20-506c-461a-88cb-2cdd080c0197">
           
           <!-- Custom Email Subject -->
@@ -385,7 +413,18 @@
       <button onclick="openModal('refundModal')">Refund Policy</button>
     </div>
     
-    <p>Ticket Inquiries: <a href="mailto:sales@arkosdelan.com" style="color: var(--accent-blue);">sales@arkosdelan.com</a></p>
+    <p>Ticket Inquiries: 
+      <span class="copy-link-container">
+        <a href="mailto:sales@arkosdelan.com" 
+           onclick="handleMailClick(event, 'sales@arkosdelan.com', 'tooltipFooter')" 
+           style="color: var(--accent-blue);" 
+           title="Click to send email or copy address">
+          sales@arkosdelan.com
+        </a>
+        <span class="copy-tooltip" id="tooltipFooter">Copied!</span>
+      </span>
+    </p>
+
     <p style="font-size: 0.75rem; opacity: 0.7; margin-top: 1rem;">
       © 2026 ArkosDelan. All rights reserved. ArkosDelan is an independent ticket sourcing and brokerage business and is not affiliated with or endorsed by any primary ticketing platform, venue, box office, artist, team, or event organizer.
     </p>
@@ -401,8 +440,17 @@
       <p>We do not sell or rent your personal information to third-party advertisers. We may share information with trusted service providers and ticketing platforms when necessary to process your request, complete a transaction, deliver tickets, or provide related services.</p>
       <p>We take reasonable measures to protect personal information against unauthorized access, disclosure, alteration, or destruction. Payment information is processed through third-party payment providers using their security and encryption systems, and we do not intentionally store full payment card details on our servers.</p>
       <p>We retain personal information only for as long as reasonably necessary to provide our services, comply with legal and accounting obligations, resolve disputes, and enforce our agreements.</p>
-      <p>By using our website or submitting a request, you acknowledge that you have read and understood this Privacy Policy.</p>
-      <p><strong>Contact:</strong> info@arkosdelan.com</p>
+      <p><strong>Contact:</strong> 
+        <span class="copy-link-container">
+          <a href="mailto:info@arkosdelan.com" 
+             onclick="handleMailClick(event, 'info@arkosdelan.com', 'tooltipPrivacy')" 
+             style="color: var(--accent-blue);" 
+             title="Click to send email or copy address">
+            info@arkosdelan.com
+          </a>
+          <span class="copy-tooltip" id="tooltipPrivacy">Copied!</span>
+        </span>
+      </p>
     </div>
   </div>
 
@@ -417,7 +465,17 @@
       <p>Tickets supplied through ArkosDelan are sourced through our ticketing and industry network and are intended to provide valid entry to the specified event.</p>
       <p>Event dates, times, venues, seating configurations, and ticketing requirements may be changed by the event organizer or ticket provider. ArkosDelan is not responsible for changes made by event organizers, venues, artists, teams, or ticketing platforms.</p>
       <p>By submitting a request, you confirm that the information you provide is accurate and that you have reviewed and accepted the applicable pricing and order terms before confirmation.</p>
-      <p><strong>Contact:</strong> info@arkosdelan.com</p>
+      <p><strong>Contact:</strong> 
+        <span class="copy-link-container">
+          <a href="mailto:info@arkosdelan.com" 
+             onclick="handleMailClick(event, 'info@arkosdelan.com', 'tooltipTerms')" 
+             style="color: var(--accent-blue);" 
+             title="Click to send email or copy address">
+            info@arkosdelan.com
+          </a>
+          <span class="copy-tooltip" id="tooltipTerms">Copied!</span>
+        </span>
+      </p>
     </div>
   </div>
 
@@ -430,12 +488,34 @@
       <p>If an event is permanently cancelled by the event organizer and is not rescheduled, customers may be eligible for a refund of the amount paid for the affected tickets, subject to the applicable refund terms of the event organizer, ticket provider, or payment processor.</p>
       <p>If an event is postponed or rescheduled, tickets generally remain valid for the new event date. Refund eligibility will depend on the policy of the applicable ticket provider or event organizer.</p>
       <p>Requests to cancel an order before ticket delivery or transfer may be considered on a case-by-case basis, depending on the status of the order and whether the tickets have already been purchased or committed on the customer's behalf.</p>
-      <p>For questions regarding a refund or cancellation, please contact support@arkosdelan.com.</p>
+      <p>For questions regarding a refund or cancellation, please contact 
+        <span class="copy-link-container">
+          <a href="mailto:support@arkosdelan.com" 
+             onclick="handleMailClick(event, 'support@arkosdelan.com', 'tooltipRefund')" 
+             style="color: var(--accent-blue);" 
+             title="Click to send email or copy address">
+            support@arkosdelan.com
+          </a>
+          <span class="copy-tooltip" id="tooltipRefund">Copied!</span>
+        </span>.
+      </p>
     </div>
   </div>
 
   <!-- Scripts -->
   <script>
+    // Copy-to-clipboard handler with visual feedback for specified tooltip ID
+    function handleMailClick(event, email, tooltipId) {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(email);
+        const tooltip = document.getElementById(tooltipId);
+        if (tooltip) {
+          tooltip.classList.add('show');
+          setTimeout(() => tooltip.classList.remove('show'), 2000);
+        }
+      }
+    }
+
     // Set minimum date to today
     document.getElementById('eventDate').min = new Date().toISOString().split('T')[0];
 
