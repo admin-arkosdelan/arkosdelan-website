@@ -7,7 +7,7 @@
   <style>
     :root {
       --bg-dark: #0f172a;
-      --card-bg: rgba(30, 41, 59, 0.75);
+      --card-bg: rgba(30, 41, 59, 0.85);
       --accent-blue: #8AC9F0;
       --text-main: #f8fafc;
       --text-muted: #cbd5e1;
@@ -16,18 +16,22 @@
       margin: 0;
       font-family: system-ui, -apple-system, sans-serif;
       color: var(--text-main);
-      background: linear-gradient(to bottom, rgba(15, 23, 42, 0.75), rgba(15, 23, 42, 0.88)),
+      background: linear-gradient(to bottom, rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.95)),
                   url('https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
       min-height: 100vh;
+      line-height: 1.6;
     }
     header {
-      padding: 1.5rem 2rem;
+      padding: 1.25rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(15, 23, 42, 0.4);
+      background: rgba(15, 23, 42, 0.8);
       backdrop-filter: blur(8px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
     }
     .logo {
       font-weight: 800;
@@ -36,6 +40,15 @@
       letter-spacing: 0.05em;
     }
     .logo span { color: var(--accent-blue); }
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-left: 1.5rem;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+    nav a:hover { color: var(--accent-blue); }
+    
     .hero {
       text-align: center;
       padding: 4rem 1rem 2rem;
@@ -44,27 +57,68 @@
     }
     .hero h1 { 
       font-size: clamp(1.8rem, 4vw, 2.75rem); 
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
       text-shadow: 0 4px 12px rgba(0,0,0,0.5);
       white-space: nowrap;
     }
-    .hero p { 
+    .hero p.tagline { 
       color: var(--text-muted); 
       font-size: 1.15rem;
       text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+      margin-bottom: 0.5rem;
     }
-    
-    /* Request Form Styles */
-    .request-container {
+    .seat-saver-explainer {
+      font-size: 0.95rem;
+      color: var(--accent-blue);
+      max-width: 750px;
+      margin: 0 auto;
+      background: rgba(138, 201, 240, 0.1);
+      padding: 0.75rem 1.25rem;
+      border-radius: 20px;
+      border: 1px solid rgba(138, 201, 240, 0.2);
+    }
+
+    /* Content Card Blocks */
+    .content-section {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .glass-card {
       background: var(--card-bg);
       border: 1px solid rgba(255, 255, 255, 0.15);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
       border-radius: 12px;
       padding: 2rem;
-      max-width: 700px;
-      margin: 2rem auto 4rem;
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+    
+    /* How It Works Grid */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+    .step-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 1.25rem 1rem;
+    }
+    .step-num {
+      color: var(--accent-blue);
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin-bottom: 0.25rem;
+    }
+
+    /* Request Form Styles */
+    .request-container {
+      max-width: 700px;
+      margin: 3rem auto;
     }
     .form-grid {
       display: grid;
@@ -81,15 +135,8 @@
       width: 100%;
       box-sizing: border-box;
     }
-    input::placeholder {
-      color: #94a3b8;
-    }
-    
-    /* Calendar picker icon */
-    input[type="date"]::-webkit-calendar-picker-indicator {
-      filter: invert(1);
-      cursor: pointer;
-    }
+    input::placeholder { color: #94a3b8; }
+    input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); cursor: pointer; }
     
     .btn-submit {
       grid-column: span 2;
@@ -103,9 +150,7 @@
       margin-top: 0.5rem;
       transition: background-color 0.2s ease;
     }
-    .btn-submit:hover {
-      background-color: #a3d7f5;
-    }
+    .btn-submit:hover { background-color: #a3d7f5; }
     .trust-bar {
       display: flex;
       justify-content: center;
@@ -114,6 +159,57 @@
       color: var(--text-muted);
       font-size: 0.875rem;
     }
+
+    /* Footer & Modals */
+    footer {
+      background: rgba(15, 23, 42, 0.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 3rem 1rem 2rem;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .footer-links button {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 0.9rem;
+      text-decoration: underline;
+    }
+    .footer-links button:hover { color: var(--accent-blue); }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.75);
+      z-index: 1000;
+      overflow-y: auto;
+    }
+    .modal-content {
+      background: var(--bg-dark);
+      border: 1px solid #334155;
+      border-radius: 12px;
+      max-width: 650px;
+      margin: 5% auto;
+      padding: 2rem;
+      color: var(--text-main);
+      text-align: left;
+    }
+    .close-btn {
+      float: right;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
   </style>
 </head>
 <body>
@@ -121,88 +217,177 @@
   <header>
     <div class="logo">ARKOS<span>DELAN</span></div>
     <nav>
-      <a href="#request" style="color: var(--accent-blue); text-decoration: none;">Request Seats</a>
+      <a href="#about">About</a>
+      <a href="#how-it-works">How It Works</a>
+      <a href="#request">Request Seats</a>
+      <a href="#contact">Contact</a>
     </nav>
   </header>
 
   <main>
     <section class="hero">
       <h1>Your Seats. Your Event. Sourced for You.</h1>
-      <p>Boutique ticket sourcing and dedicated Seat Saver options for concerts and comedy shows.</p>
+      <p class="tagline">Boutique ticket sourcing for concerts, comedy shows, and live events.</p>
+      <div class="seat-saver-explainer">
+        <strong>What is Seat Saver?</strong> Our bespoke sourcing service where we match your event, seating preferences, and budget to secure authentic tickets directly for you.
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="content-section" id="about">
+      <div class="glass-card">
+        <h2 style="margin-top: 0; color: var(--accent-blue);">About Arkos Delan</h2>
+        <p style="margin-bottom: 0;">
+          Arkos Delan is an independent ticket sourcing and brokerage boutique. We specialize in locating hard-to-find seats and premium access for high-demand concerts, comedy tours, and live entertainment. Rather than forcing fans to navigate confusing secondary marketplaces, our dedicated team handles the entire sourcing process to deliver verified, guaranteed tickets directly to your digital wallet.
+        </p>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="content-section" id="how-it-works">
+      <div class="glass-card">
+        <h2 style="margin-top: 0; text-align: center; color: var(--accent-blue);">How It Works</h2>
+        <div class="steps-grid">
+          <div class="step-box">
+            <div class="step-num">01</div>
+            <strong>Submit Request</strong>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Tell us your act, budget, section preference, and quantity.</p>
+          </div>
+          <div class="step-box">
+            <div class="step-num">02</div>
+            <strong>We Source</strong>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">We query our trusted partner network for authentic inventory.</p>
+          </div>
+          <div class="step-box">
+            <div class="step-num">03</div>
+            <strong>Review & Confirm</strong>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Receive a custom quote and secure seat option for review.</p>
+          </div>
+          <div class="step-box">
+            <div class="step-num">04</div>
+            <strong>Digital Delivery</strong>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Tickets are transferred directly to your email or primary app.</p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Ticket Request Section -->
-    <section class="request-container" id="request">
-      <h2 style="margin-top:0; text-align:center;">Planning to attend a show? Request your seats.</h2>
-      <p style="color: var(--text-muted); text-align:center; font-size: 0.9rem;">
-        Share your event details and budget, and our team will handle the rest.
-      </p>
-      
-      <form id="ticketRequestForm">
-        <div class="form-grid">
-          <!-- Autocomplete Artist Input -->
-          <input type="text" id="artistInput" list="artist-suggestions" placeholder="Artist or Show Name" required autocomplete="off">
-          <datalist id="artist-suggestions"></datalist>
+    <section class="content-section request-container" id="request">
+      <div class="glass-card">
+        <h2 style="margin-top:0; text-align:center;">Planning to attend a show? Request your seats.</h2>
+        <p style="color: var(--text-muted); text-align:center; font-size: 0.9rem;">
+          Share your event details and budget, and our team will handle the rest.
+        </p>
+        
+        <form action="https://formspree.io/f/YOUR_FORMSPREE_ID_HERE" method="POST" id="ticketRequestForm">
+          <div class="form-grid">
+            <!-- Autocomplete Artist Input -->
+            <input type="text" id="artistInput" name="Artist/Show" list="artist-suggestions" placeholder="Artist or Show Name" required autocomplete="off">
+            <datalist id="artist-suggestions"></datalist>
 
-          <input type="text" placeholder="City or Venue" required>
-          <input type="date" required>
-          
-          <!-- Seating Preference Input + Datalist -->
-          <input type="text" list="seating-options" placeholder="Preferred Section" required>
-          <datalist id="seating-options">
-            <option value="Any">
-            <option value="General Admission">
-            <option value="Lawn">
-            <option value="Pit">
-            <option value="Floor">
-            <option value="Lower Bowl">
-            <option value="Upper Bowl">
-            <option value="Orchestra">
-            <option value="Balcony">
-            <option value="Best Available">
-          </datalist>
+            <input type="text" name="City/Venue" placeholder="City or Venue" required>
+            <input type="date" name="Event Date" required>
+            
+            <!-- Seating Preference Input + Datalist -->
+            <input type="text" name="Section" list="seating-options" placeholder="Preferred Section" required>
+            <datalist id="seating-options">
+              <option value="Any">
+              <option value="General Admission">
+              <option value="Lawn">
+              <option value="Pit">
+              <option value="Floor">
+              <option value="Lower Bowl">
+              <option value="Upper Bowl">
+              <option value="Orchestra">
+              <option value="Balcony">
+              <option value="Best Available">
+            </datalist>
 
-          <!-- Number of Tickets Input + Datalist -->
-          <input type="text" list="ticket-quantities" placeholder="Number of Tickets" required>
-          <datalist id="ticket-quantities">
-            <option value="1 Ticket">
-            <option value="2 Tickets">
-            <option value="3 Tickets">
-            <option value="4 Tickets">
-            <option value="5 Tickets">
-            <option value="6 Tickets">
-            <option value="7 Tickets">
-            <option value="8 Tickets">
-            <option value="9 Tickets">
-            <option value="10 Tickets">
-            <option value="11 Tickets">
-            <option value="12 Tickets">
-            <option value="13 Tickets">
-            <option value="14 Tickets">
-            <option value="15 Tickets">
-            <option value="16 Tickets">
-            <option value="17 Tickets">
-            <option value="18 Tickets">
-            <option value="19 Tickets">
-            <option value="20 Tickets">
-          </datalist>
+            <!-- Number of Tickets Input + Datalist -->
+            <input type="text" name="Ticket Quantity" list="ticket-quantities" placeholder="Number of Tickets" required>
+            <datalist id="ticket-quantities">
+              <option value="1 Ticket">
+              <option value="2 Tickets">
+              <option value="3 Tickets">
+              <option value="4 Tickets">
+              <option value="5 Tickets">
+              <option value="6 Tickets">
+              <option value="7 Tickets">
+              <option value="8 Tickets">
+              <option value="9 Tickets">
+              <option value="10 Tickets">
+              <option value="11 Tickets">
+              <option value="12 Tickets">
+              <option value="13 Tickets">
+              <option value="14 Tickets">
+              <option value="15 Tickets">
+              <option value="16 Tickets">
+              <option value="17 Tickets">
+              <option value="18 Tickets">
+              <option value="19 Tickets">
+              <option value="20 Tickets">
+            </datalist>
 
-          <input type="text" placeholder="Max Budget per Ticket ($)" required>
-          <input type="email" placeholder="Your Email Address" style="grid-column: span 2;" required>
-          <button type="submit" class="btn-submit">SUBMIT SEAT SAVER REQUEST</button>
+            <input type="text" name="Max Budget ($)" placeholder="Max Budget per Ticket ($)" required>
+            <input type="email" name="Customer Email" placeholder="Your Email Address" style="grid-column: span 2;" required>
+            <button type="submit" class="btn-submit">SUBMIT SEAT SAVER REQUEST</button>
+          </div>
+        </form>
+
+        <div class="trust-bar">
+          <span>✓ Authentic Tickets</span>
+          <span>✓ Secure Digital Transfer</span>
+          <span>✓ Dedicated Support</span>
         </div>
-      </form>
-
-      <div class="trust-bar">
-        <span>✓ Authentic Tickets</span>
-        <span>✓ Secure Digital Transfer</span>
-        <span>✓ Dedicated Support</span>
       </div>
     </section>
   </main>
 
-  <!-- Instant Client-Side Autocomplete Script -->
+  <!-- Footer & Policies Section -->
+  <footer id="contact">
+    <div class="footer-links">
+      <button onclick="openModal('privacyModal')">Privacy Policy</button>
+      <button onclick="openModal('termsModal')">Terms & Conditions</button>
+      <button onclick="openModal('refundModal')">Refund & Cancellation Policy</button>
+    </div>
+    
+    <p>Dedicated Client Support: <a href="mailto:support@arkosdelan.com" style="color: var(--accent-blue);">support@arkosdelan.com</a></p>
+    <p style="font-size: 0.8rem; opacity: 0.7; margin-top: 1rem;">
+      © 2026 Arkos Delan. All rights reserved. Arkos Delan is an independent ticket sourcing broker and is not affiliated with any primary ticketing venue, box office, or artist.
+    </p>
+  </footer>
+
+  <!-- Privacy Policy Modal -->
+  <div id="privacyModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('privacyModal')">&times;</span>
+      <h3>Privacy Policy</h3>
+      <p>Arkos Delan values your privacy. We collect customer names, email addresses, and event request details solely to fulfill custom ticket sourcing requests and communicate quotes. We do not sell, rent, or share your personal information with third-party advertisers. All transaction data is processed securely through standard encrypted protocols.</p>
+    </div>
+  </div>
+
+  <!-- Terms Modal -->
+  <div id="termsModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('termsModal')">&times;</span>
+      <h3>Terms & Conditions</h3>
+      <p>By submitting a request or purchasing ticket sourcing services through Arkos Delan, you agree that Arkos Delan acts as an independent concierge broker. Final pricing is agreed upon prior to order confirmation. All tickets fulfilled are guaranteed to be 100% authentic and valid for entry.</p>
+    </div>
+  </div>
+
+  <!-- Refund Policy Modal -->
+  <div id="refundModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal('refundModal')">&times;</span>
+      <h3>Refund & Cancellation Policy</h3>
+      <p>Due to the nature of live event ticketing, all confirmed ticket sales are final once digital transfer is initiated. If an event is permanently cancelled by the organizer (and not rescheduled), customers will receive a 100% refund for the ticket value. If an event is postponed or rescheduled, original tickets remain valid for the new date, and refunds are not issued.</p>
+    </div>
+  </div>
+
+  <!-- Scripts -->
   <script>
+    // Autocomplete list
     const popularActs = [
       "Zach Bryan", "Matt Rife", "Nate Bargatze", "Morgan Wallen",
       "Sabrina Carpenter", "Billie Eilish", "Coldplay", "Drake", "Olivia Rodrigo",
@@ -220,14 +405,21 @@
     function populateSuggestions() {
       const query = artistInput.value.toLowerCase().trim();
       artistDatalist.innerHTML = '';
-
       const matches = popularActs.filter(act => act.toLowerCase().includes(query));
-      
       matches.forEach(act => {
         const option = document.createElement('option');
         option.value = act;
         artistDatalist.appendChild(option);
       });
+    }
+
+    // Modal Handlers
+    function openModal(id) { document.getElementById(id).style.display = 'block'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    window.onclick = function(event) {
+      if (event.target.classList.contains('modal')) {
+        event.target.style.display = 'none';
+      }
     }
   </script>
 
