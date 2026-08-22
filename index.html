@@ -390,7 +390,7 @@
           <input type="hidden" name="access_key" value="348b1f20-506c-461a-88cb-2cdd080c0197">
           
           <!-- Web3Forms Anti-Spam Honeypot Field -->
-          <input type="checkbox" name="botcheck" class="hidden" style="display: none;" tabindex="-1" autocomplete="off">
+          <input type="checkbox" name="botcheck" style="display:none;" tabindex="-1" autocomplete="off">
 
           <!-- Custom Email Subject -->
           <input type="hidden" name="subject" value="New Seat Saver Request - ArkosDelan">
@@ -573,8 +573,12 @@
       }
     }
 
-    // Set minimum date to today using local timezone
-    document.getElementById('eventDate').min = new Date().toLocaleDateString('en-CA');
+    // Set minimum date to today using explicit YYYY-MM-DD formatting
+    const today = new Date();
+    const yyyy = today.getFullYear();
+    const mm = String(today.getMonth() + 1).padStart(2, '0');
+    const dd = String(today.getDate()).padStart(2, '0');
+    document.getElementById('eventDate').min = `${yyyy}-${mm}-${dd}`;
 
     const popularActs = [
       "Zach Bryan", "Matt Rife", "Nate Bargatze", "Morgan Wallen",
